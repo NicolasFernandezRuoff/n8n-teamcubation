@@ -1,0 +1,228 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "path": "b368a478-21fc-4688-9e1c-252f6f8df0dd",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -304,
+        -32
+      ],
+      "id": "1d3951e4-9938-4cd8-979d-609902bbba5c",
+      "name": "Webhook",
+      "webhookId": "b368a478-21fc-4688-9e1c-252f6f8df0dd"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1248,
+        -32
+      ],
+      "id": "1644ab3c-6087-4589-8e60-0143855489d5",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "responsesApiEnabled": false,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        464,
+        176
+      ],
+      "id": "605f2700-160c-4ebb-8585-f87fdf012e8c",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "b2HfoLnPNXu8vZS5",
+          "name": "Boostercamp"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtenemos el texto completo del nodo anterior.\n// IMPORTANTE: Fijate en el output de tu nodo anterior cómo se llama el campo que tiene el texto. \n// Suele ser \"text\", \"data\" o \"content\". Si no es \"text\", cambialo en la línea de abajo.\nconst textoCompleto = $input.first().json.text; \n\nif (!textoCompleto) {\n  return []; // Por si viene vacío, que no explote\n}\n\nreturn {textoCompleto: textoCompleto};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        336,
+        -32
+      ],
+      "id": "c19cc9a0-9020-4037-bd37-8c3d50768393",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.body.drive_id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -32,
+        -32
+      ],
+      "id": "d0cdd9e2-9f56-4afc-ba32-f4641766d21b",
+      "name": "Buscar documento",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "C1KGBOIQCsQrJW1z",
+          "name": "NickFr"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        144,
+        -32
+      ],
+      "id": "83ba70ca-f318-4234-9d33-49d8aa2789a0",
+      "name": "Extreer inforamcion"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Actuá como un locutor de podcast educativo y profesional. \n\nTU TAREA:\nConvertí el siguiente contenido del PDF en un guion de audio dinámico y grabalo. \n\nREGLAS DE LOCUCIÓN:\n- Empezá con una bienvenida entusiasta: \"¡Hola! Bienvenido a tu resumen diario de estudio...\"\n- Usá un tono conversacional, como si le estuvieras explicando a un compañero de la UTN.\n- Hacé pausas breves entre temas importantes.\n- Terminá con un mensaje motivador para el examen.\n\nCONTENIDO DEL PDF:\n{{ $json.textoCompleto }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        576,
+        -32
+      ],
+      "id": "0d29c9df-9c82-44a5-9f2f-de5cf85b4b3e",
+      "name": "Generar podcast texto"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://texttospeech.googleapis.com/v1/text:synthesize?key=AIzaSyDhrc4skevuYaS9NzHgh4tQJn59QsOatQk",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"input\": {\n    \"text\": {{ JSON.stringify($json.output) }}\n  },\n  \"voice\": {\n    \"languageCode\": \"es-US\",\n    \"name\": \"es-US-Wavenet-B\"\n  },\n  \"audioConfig\": {\n    \"audioEncoding\": \"MP3\",\n    \"pitch\": 0,\n    \"speakingRate\": 1.0\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        976,
+        -32
+      ],
+      "id": "48a0fab8-7d79-4e9c-8f3e-2c67638c68ce",
+      "name": "Pasar texto a audio"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Buscar documento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Generar podcast texto",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Generar podcast texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar documento": {
+      "main": [
+        [
+          {
+            "node": "Extreer inforamcion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extreer inforamcion": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generar podcast texto": {
+      "main": [
+        [
+          {
+            "node": "Pasar texto a audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pasar texto a audio": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9e32504f9a8817c896d4d37219099e0711e6952633709227e55b425d6b54bd63"
+  }
+}
