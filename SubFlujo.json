@@ -1,0 +1,67 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "collection": "Bot Whapp",
+        "options": {},
+        "query": "={\n  \"archivo_drive_id\": \"{{ $json.drive_id }}\"\n}"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "86820776-e935-4eda-84ea-927583c947cc",
+      "name": "Find documents",
+      "credentials": {
+        "mongoDb": {
+          "id": "Hb67eBr3ICdFSTge",
+          "name": "Mongo Nico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "drive_id"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "3d9bf3ec-9ea9-4f0d-ace2-2cb7195bdf3b",
+      "name": "When Executed by Another Workflow"
+    }
+  ],
+  "connections": {
+    "Find documents": {
+      "main": [
+        []
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Find documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9e32504f9a8817c896d4d37219099e0711e6952633709227e55b425d6b54bd63"
+  }
+}
