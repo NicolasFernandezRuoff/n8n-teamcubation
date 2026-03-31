@@ -1,0 +1,1732 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "messages"
+        ],
+        "options": {}
+      },
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
+      "position": [
+        -912,
+        -176
+      ],
+      "id": "94986533-4206-41aa-aed2-d9b0f8c1865c",
+      "name": "WhatsApp Trigger",
+      "webhookId": "0942affd-e8bf-4ce4-a232-bbe30e0e6829",
+      "credentials": {
+        "whatsAppTriggerApi": {
+          "id": "oNOha11vS0epddVE",
+          "name": "Trigger whapp nico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5.2",
+          "mode": "list",
+          "cachedResultName": "gpt-5.2"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        48,
+        -144
+      ],
+      "id": "a4e2d2b0-03dd-4f4d-b44c-33d566708b89",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "b2HfoLnPNXu8vZS5",
+          "name": "Boostercamp"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.data[1].celular }}",
+        "contextWindowLength": 20
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        176,
+        -144
+      ],
+      "id": "71006f4d-f6b7-41be-ada4-33db5adfdea4",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.output.tipo_mensaje }}",
+                    "rightValue": "EXAMEN",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "6af7e6c3-0b43-43ed-a8c7-d9c250790a92"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "a49d38ea-cda9-486e-81a2-e00715f0f6fe",
+                    "leftValue": "={{ $json.output.tipo_mensaje }}",
+                    "rightValue": "PODCAST",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "7e61d3a2-3d01-480e-9ea2-4a4edbbe2eff",
+                    "leftValue": "={{ $json.output.tipo_mensaje }}",
+                    "rightValue": "RESPUESTA",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "0db35a65-ed6f-4cda-b374-6e9a6d339a8d",
+                    "leftValue": "={{ $json.output.tipo_mensaje }}",
+                    "rightValue": "DISEÑO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "45eb01d2-f6c9-4ff2-bf09-4a648e5f7c8b",
+                    "leftValue": "={{ $json.output.tipo_mensaje }}",
+                    "rightValue": "EXPORTAR",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "d8bb477f-7903-448f-8c4a-52bbb8baeb2f",
+                    "leftValue": "={{ $json.output.tipo_mensaje }}",
+                    "rightValue": "AYUDA",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "51fcb8ea-f366-4100-ab40-73e0af84535b",
+                    "leftValue": "={{ $json.output.tipo_mensaje }}",
+                    "rightValue": "INVESTIGAR",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "654af612-80e4-46ff-9289-c103c1970962",
+                    "leftValue": "={{ $json.output.tipo_mensaje }}",
+                    "rightValue": "ERROR",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        544,
+        -128
+      ],
+      "id": "d1eb24c7-cfa4-429a-8e2c-f274c187ad28",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "35a3060d-54ae-4c6e-aaa1-121d8a18c069",
+              "name": "token",
+              "value": "=EAAUWtZCZBD3W8BRERt21pGfAn4G3gtn7QhbZC82hULeuNBf1NCIaDT7ZA3MFTZAV9AZBwfKI2H5hHAeKDTepQmI0wi6kaafQKMjdMd1yAwz0AbIoJV2rZBIbYZC6ZCilHk2P3YdU3TBoCdsWwZATBSU3iNk4DokegrMrpgEQ7VNadFoC3ltGdOVWNDK7WRMr2TxR9VFXidcdvguHZAHKZC4GJsGlwteMfvkTZBNB5OU6ONVUww8J9QVmTXkHu7b0qbvZBcXOibRqzU0tm3cqHIoEgsCxN1",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -688,
+        -240
+      ],
+      "id": "76ae8675-b6bb-4365-a883-69bf879a896f",
+      "name": "Token"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -464,
+        -160
+      ],
+      "id": "dbcf7caf-8f7a-4124-b637-c8bcad74707f",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        -288,
+        -160
+      ],
+      "id": "02cb9aae-826d-4c3b-8f18-6fa5a5cf9a0d",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "errorMessage": "Fallo la IA"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1232,
+        720
+      ],
+      "id": "56d33ab8-10d9-4e43-906e-43e8dabb9a3a",
+      "name": "Stop and Error"
+    },
+    {
+      "parameters": {
+        "collection": "Bot Whapp",
+        "options": {},
+        "query": "={\n  \"telefono\": \"{{ $('Aggregate').item.json.data[1].celular }}\"\n}"
+      },
+      "type": "n8n-nodes-base.mongoDbTool",
+      "typeVersion": 1.2,
+      "position": [
+        272,
+        -144
+      ],
+      "id": "37d47022-b4e5-4c7a-8800-b3cf8920dbc2",
+      "name": "Find documents in MongoDB",
+      "credentials": {
+        "mongoDb": {
+          "id": "Hb67eBr3ICdFSTge",
+          "name": "Mongo Nico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"tipo_mensaje\": \"RESPUESTA\",\n  \"drive_id\": \"1xK0nb53tnF4avsMaP_YtKZ-WBLElXHpe\",\n  \"respuesta\": \"La respuesta es la A y la B\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        384,
+        -144
+      ],
+      "id": "c4fdaeb2-0066-4ce3-a318-14a26a48ae5e",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Accedemos a la data siguiendo tu estructura: $json.output\nconst data = $json.output; \n\n// Verificamos que existan las evaluaciones\nconst evaluaciones = data.evaluacion || [];\nconst mensajeResumen = data.mensaje_para_usuario || \"Examen procesado.\";\n\nlet textoFinal = \"📊 *RESULTADOS DE TU EVALUACIÓN* \\n\";\ntextoFinal += \"━━━━━━━━━━━━━━━━━━━━━\\n\\n\";\n\n// 2. Variables para el contador de puntos\nlet correctas = 0;\n\n// 3. Iteramos las preguntas\nevaluaciones.forEach((item) => {\n  const esCorrecta = item.estado === \"APROBADO\";\n  if (esCorrecta) correctas++;\n  \n  const icono = esCorrecta ? \"✅\" : \"❌\";\n  \n  textoFinal += `${icono} *Pregunta ${item.nro_pregunta}:* ${item.pregunta}\\n`;\n  textoFinal += `*Estado:* _${item.estado}_\\n`;\n  \n  if (!esCorrecta) {\n    textoFinal += `💡 *Respuesta Correcta:* ${item.respuesta_correcta}\\n`;\n  }\n  \n  textoFinal += `📝 *Feedback:* ${item.feedback}\\n`;\n  textoFinal += \"─────────────────────\\n\";\n});\n\n// 4. Puntaje final visual\nconst total = evaluaciones.length;\nconst porcentaje = (correctas / total) * 100;\nlet medalla = porcentaje >= 70 ? \"🏆\" : \"📚\";\n\ntextoFinal += `\\n${medalla} *Puntaje Final:* ${correctas}/${total}\\n`;\ntextoFinal += `📌 *Resumen:* ${mensajeResumen}\\n\\n`;\ntextoFinal += \"¡Seguí metiéndole garra al estudio! 💪\";\n\nreturn { texto_whatsapp: textoFinal };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1472,
+        -224
+      ],
+      "id": "b6093295-cc17-46ee-b768-fb4c045e40e7",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "audioContent",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1472,
+        -384
+      ],
+      "id": "2b9893a5-67b0-4139-a7ef-28a34546820b",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "html_content",
+        "options": {
+          "fileName": "Examen_Generado.html"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1584,
+        112
+      ],
+      "id": "fc3adfe9-aba0-4d9a-9494-43debb007cfb",
+      "name": "Convert to File1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "2cd103b2-8d9e-4d6f-8fde-fcaa105db6c2",
+              "leftValue": "={{ $json.data[1].tipo }}",
+              "rightValue": "text",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -128,
+        -160
+      ],
+      "id": "caafa994-4614-488f-8af5-4f9fdd6b0852",
+      "name": "Es un Documento"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3fd2f1a6-21d3-44db-8377-1b3e07dbb5b5",
+              "name": "nombre",
+              "value": "={{ $json.contacts[0].profile.name }}",
+              "type": "string"
+            },
+            {
+              "id": "c88934e0-a672-4050-8e04-44c88a1923b5",
+              "name": "celular",
+              "value": "={{ $json.contacts[0].wa_id.toString().replace(/^549/, '54') }}",
+              "type": "string"
+            },
+            {
+              "id": "2cdbb172-50ec-486e-9d8c-864f3d17e7cb",
+              "name": "tipo",
+              "value": "={{ $json.messages[0].type }}",
+              "type": "string"
+            },
+            {
+              "id": "64f2aa46-d899-4c40-b7c9-ac4c03856a94",
+              "name": "id_documento",
+              "value": "={{ $json.messages[0].document.id }}",
+              "type": "string"
+            },
+            {
+              "id": "0b968a5f-a17a-4a9c-91be-ae578b8bcf5a",
+              "name": "url_documento",
+              "value": "={{ $json.messages[0].document.url }}",
+              "type": "string"
+            },
+            {
+              "id": "eb9510d1-f2ae-4605-b00a-26cc32b2f264",
+              "name": "id_celuclar",
+              "value": "={{ $json.metadata.phone_number_id }}",
+              "type": "string"
+            },
+            {
+              "id": "8c88b584-fafd-4dbe-b925-ddc97b399f3d",
+              "name": "mensaje",
+              "value": "={{ $json.messages[0].text.body }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -688,
+        -80
+      ],
+      "id": "815b781c-3b53-4f13-aedc-e723887dfe5a",
+      "name": "Datos Whapp"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "=1033185156540146",
+        "recipientPhoneNumber": "={{ $json.data[1].celular }}",
+        "textBody": "=📄 Archivo recibido correctamente.\n\n*¿Qué querés generar con este contenido?*\n\n🎧 Escribí *podcast* para escucharlo en audio\n📝 Escribí *examen* para generar preguntas",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        160,
+        976
+      ],
+      "id": "1d45579e-48af-4c3c-a387-ba320ce45966",
+      "name": "Accion en base al texto",
+      "webhookId": "f445c06e-1a14-436c-9a29-2ea872e6920f",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "ZKTptRZlCYc7xPCM",
+          "name": "Enviar mensajes nico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Es un Documento').item.json.data[1].url_documento }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $('Es un Documento').item.json.data[0].token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        336,
+        976
+      ],
+      "id": "3e5d5ca5-7438-4ef5-bd87-4ad3c824cae2",
+      "name": "Solicitar id del documento"
+    },
+    {
+      "parameters": {
+        "name": "={{ $('Aggregate').item.json.data[1].id_documento }}",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "13VSp-CbDPdJSVX256BS-rwrtl_BFIl--",
+          "mode": "list",
+          "cachedResultName": "n8n",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/13VSp-CbDPdJSVX256BS-rwrtl_BFIl--"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        512,
+        976
+      ],
+      "id": "22742c3f-9629-42d8-aea7-74f12cd724c8",
+      "name": "Guardar Documento",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "C1KGBOIQCsQrJW1z",
+          "name": "NickFr"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "748b04a5-aeb7-4fcb-886f-eb2b19865793",
+              "name": "telefono",
+              "value": "={{ $('Accion en base al texto').item.json.contacts[0].input }}",
+              "type": "string"
+            },
+            {
+              "id": "4c6d484a-c5d3-41c5-9df6-7f3236d469ff",
+              "name": "archivo_drive_id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "57c4c3e3-2bc0-418c-9961-cc301b1945df",
+              "name": "timestamp",
+              "value": "={{ $json.createdTime }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        672,
+        976
+      ],
+      "id": "6ba975cc-b3e8-40aa-9528-64b00b43dbba",
+      "name": "Aislar Datos"
+    },
+    {
+      "parameters": {
+        "operation": "findOneAndReplace",
+        "collection": "Bot Whapp",
+        "updateKey": "telefono",
+        "fields": "telefono, archivo_drive_id, timestamp",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        864,
+        976
+      ],
+      "id": "84ac1770-c8b8-40fa-8576-3f39bbb5e32f",
+      "name": "Guardar Doc en BD",
+      "credentials": {
+        "mongoDb": {
+          "id": "Hb67eBr3ICdFSTge",
+          "name": "Mongo Nico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1033185156540146",
+        "recipientPhoneNumber": "={{ $('Es un Documento').item.json.data[1].celular }}",
+        "textBody": "¡Recibido! 📥 Estoy analizando tu documento para armar las mejores preguntas. Dame un segundito que estamos preparando tu examen... ¡Afilá los lápices que ya sale! ✍️🚀",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        880,
+        -528
+      ],
+      "id": "29b8fec7-7af3-4297-abd4-accb690a0a6e",
+      "name": "Mensaje armando Preg",
+      "webhookId": "f8ed8f44-7937-4ceb-b8d3-53cfd5e93121",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "ZKTptRZlCYc7xPCM",
+          "name": "Enviar mensajes nico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1033185156540146",
+        "recipientPhoneNumber": "={{ $('Es un Documento').item.json.data[1].celular }}",
+        "textBody": "¡Buena elección! 🎙️ Me pongo manos a la obra con el audio. Estamos generando tu podcast personalizado para que puedas repasar el contenido donde quieras. ¡Prepará los auriculares! 🎧✨",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        880,
+        -368
+      ],
+      "id": "6fff0c6c-dbcf-4174-8c8e-f5f8497709fa",
+      "name": "Mensaje armando Podcast",
+      "webhookId": "c79d0787-3403-4cc8-b981-8c437fd1e500",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "ZKTptRZlCYc7xPCM",
+          "name": "Enviar mensajes nico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1033185156540146",
+        "recipientPhoneNumber": "={{ $('Es un Documento').item.json.data[1].celular }}",
+        "textBody": "¡Muy bien! Ya me llegaron tus respuestas. 🧐 Dejame que las compare con la base de datos, estamos corrigiendo tus preguntas para ver cómo te fue. ¡Mucha suerte, seguro te fue de diez! 🎓📊",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        880,
+        -208
+      ],
+      "id": "233e48cb-4d14-4203-8482-38ed46472ba6",
+      "name": "Mensaje Verficiando Rta",
+      "webhookId": "3473ce5e-0463-4700-8796-04e042e18036",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "ZKTptRZlCYc7xPCM",
+          "name": "Enviar mensajes nico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1033185156540146",
+        "recipientPhoneNumber": "={{ $('Es un Documento').item.json.data[1].celular }}",
+        "textBody": "=¡Hola! Soy tu asistente de estudio impulsado por IA. 🤖📚  Acá te dejo todo lo que podemos hacer juntos para romperla en los finales:  \n📄 *1. Crear Exámenes*: Mandame un PDF y te armo preguntas a medida (Multiple choice, V/F o desarrollo).\n🎙️ *2. Modo Podcast*: Si preferís escuchar, mandame un PDF y pedime un resumen en audio.  \n✍️ *3. Edición Manual:* ¿Una pregunta no te convence? Pedime que la cambie (ej: _\"Hacé la 2 más difícil\"_ o _\"Borrá la 3\"_).  \n✅ *4. A Jugar*: Respondeme las preguntas directamente por acá y te corrijo al instante.  \n📥 *5. Exportar*: Cuando tu examen quede listo, escribí *\"Exportar\"* y te armo el PDF final para descargar.  \n🔍 *6. Investigar:* Pedime que busque info sobre cualquier tema (ej: _\"Armame un resumen de microservicios\"_) y te armo un apunte en PDF a medida.\n¿Con qué arrancamos hoy? 🚀",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        1184,
+        272
+      ],
+      "id": "85be4d4e-0876-4902-99ff-ee70ce361694",
+      "name": "Mensaje de help",
+      "webhookId": "3473ce5e-0463-4700-8796-04e042e18036",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "ZKTptRZlCYc7xPCM",
+          "name": "Enviar mensajes nico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1033185156540146",
+        "recipientPhoneNumber": "={{ $('Es un Documento').item.json.data[1].celular }}",
+        "textBody": "=¡Anotado! 🕵️‍♂️ Me pongo los lentes de leer y me voy a buscar la mejor info sobre este tema. Dame unos segunditos que te armo un apunte de lujo listo para estudiar... 📚✨",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        976,
+        464
+      ],
+      "id": "ef54cd7a-9733-4a55-8bbb-c022b2f03a20",
+      "name": "Mensaje de Investigando sobre tema",
+      "webhookId": "3473ce5e-0463-4700-8796-04e042e18036",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "ZKTptRZlCYc7xPCM",
+          "name": "Enviar mensajes nico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1033185156540146",
+        "recipientPhoneNumber": "={{ $('Es un Documento').item.json.data[1].celular }}",
+        "textBody": "=¡Hola! Por el momento, no estoy capacitado para realizar esa acción. 🤖   Mi especialidad actual es ayudarte con la generación de exámenes, correcciones y podcasts educativos. 📚   💡 *¿No sabés por dónde empezar?* Escribí la palabra *ayuda* y te voy a contar paso a paso todo lo que puedo hacer por vos para que le saques el máximo provecho al bot. 🚀",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        928,
+        720
+      ],
+      "id": "8d35ee53-ed1f-4275-ab3b-93e4e820829c",
+      "name": "Mensaje de error",
+      "webhookId": "3473ce5e-0463-4700-8796-04e042e18036",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "ZKTptRZlCYc7xPCM",
+          "name": "Enviar mensajes nico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://teamcubation.app.n8n.cloud/webhook/7dd2c89a-0a86-4237-a9eb-0863a4d1bb00",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "drive_id",
+              "value": "={{ $('IA tipo De Evento').item.json.output.drive_id }}"
+            },
+            {
+              "name": "telefono",
+              "value": "={{ $('Es un Documento').item.json.data[1].celular }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1184,
+        -528
+      ],
+      "id": "dfae9b9f-775c-4151-9c61-38c08e2927b3",
+      "name": "Micro 2"
+    },
+    {
+      "parameters": {
+        "url": "https://teamcubation.app.n8n.cloud/webhook/b368a478-21fc-4688-9e1c-252f6f8df0dd",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "drive_id",
+              "value": "={{ $('IA tipo De Evento').item.json.output.drive_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1184,
+        -384
+      ],
+      "id": "4b2931d3-6ea5-4331-9128-3488f3fa8fbf",
+      "name": "Micro 4"
+    },
+    {
+      "parameters": {
+        "url": "https://teamcubation.app.n8n.cloud/webhook/47ba1482-d285-4c08-8d0a-d199bef58732",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "drive_id",
+              "value": "={{ $('IA tipo De Evento').item.json.output.drive_id }}"
+            },
+            {
+              "name": "respuestas",
+              "value": "={{ $('IA tipo De Evento').item.json.output.respuesta }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1184,
+        -224
+      ],
+      "id": "23025f3c-f41b-44e0-b582-32f6c734a0dd",
+      "name": "Micro 3"
+    },
+    {
+      "parameters": {
+        "collection": "Bot Whapp",
+        "options": {},
+        "query": "={ \"telefono\":  \"{{ $('Es un Documento').item.json.data[1].celular }}\" }"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        1184,
+        112
+      ],
+      "id": "387e2636-7636-4b2e-ba15-dc38ad16ae3c",
+      "name": "Buscando examen",
+      "credentials": {
+        "mongoDb": {
+          "id": "Hb67eBr3ICdFSTge",
+          "name": "Mongo Nico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://teamcubation.app.n8n.cloud/webhook/c4d5840e-b9d5-442a-93c2-9c6be24a6bab",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "drive_id",
+              "value": "={{ $('IA tipo De Evento').item.json.output.drive_id }}"
+            },
+            {
+              "name": "telefono",
+              "value": "={{ $('Es un Documento').item.json.data[1].celular }}"
+            },
+            {
+              "name": "feedback",
+              "value": "={{ $json.output.respuesta }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1184,
+        -48
+      ],
+      "id": "aed4074a-1552-451d-bed0-7ed59329fa16",
+      "name": "Micro 5"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Obtenemos las preguntas del nodo anterior\nconst preguntas = $input.first().json.preguntas;\n\n// 2. Armamos el HTML con CSS premium\nlet html = `\n<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <style>\n        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding: 40px; color: #2C3E50; line-height: 1.6; }\n        .header-container { text-align: center; border-bottom: 2px solid #34495E; padding-bottom: 20px; margin-bottom: 30px; }\n        h1 { margin: 0; font-size: 28px; text-transform: uppercase; letter-spacing: 1px; color: #2C3E50; }\n        .subtitle { font-size: 14px; color: #7F8C8D; margin-top: 5px; }\n        .student-info { display: flex; justify-content: space-between; margin-bottom: 40px; font-size: 16px; }\n        .student-info div { font-weight: normal; color: #333; margin-left: 10px; }\n        .student-info span { color: #2C3E50; font-weight: bold; }\n        .pregunta { margin-bottom: 35px; page-break-inside: avoid; background-color: #F8F9FA; padding: 20px; border-radius: 8px; border-left: 4px solid #3498DB; }\n        .tipo { font-size: 11px; font-weight: bold; color: #FFFFFF; background-color: #3498DB; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; margin-bottom: 12px; display: inline-block; letter-spacing: 0.5px; }\n        .texto-pregunta { font-weight: 600; font-size: 16px; margin-bottom: 15px; color: #2C3E50; }\n        .opciones { margin-top: 10px; list-style-type: none; padding-left: 0; }\n        .opcion { padding: 8px 12px; margin-bottom: 8px; font-size: 15px; display: flex; align-items: center; color: #34495E; }\n        .caja { display: inline-block; width: 14px; height: 14px; border: 2px solid #BDC3C7; border-radius: 3px; margin-right: 12px; background-color: white; }\n        .espacio-desarrollo { height: 120px; border: 1px dashed #BDC3C7; border-radius: 5px; margin-top: 15px; background-color: #fff; }\n        .footer { margin-top: 50px; font-size: 12px; text-align: center; color: #95A5A6; border-top: 1px solid #ECF0F1; padding-top: 20px; }\n    </style>\n</head>\n<body>\n    <div class=\"header-container\">\n        <h1>Examen de Evaluación</h1>\n        <div class=\"subtitle\">Prueba generada por Inteligencia Artificial</div>\n    </div>\n\n    <div class=\"student-info\">\n        <div><span>Nombre:</span> ____________________________________</div>\n        <div><span>Fecha:</span> ________________</div>\n    </div>\n`;\n\npreguntas.forEach((p, i) => {\n    html += `\n    <div class=\"pregunta\">\n        <span class=\"tipo\">${p.tipo.replace('_', ' ')}</span>\n        <div class=\"texto-pregunta\">${i + 1}. ${p.pregunta}</div>\n    `;\n\n    if (p.opciones && p.opciones.length > 0) {\n        html += `<ul class=\"opciones\">`;\n        p.opciones.forEach(opt => {\n            html += `<li class=\"opcion\"><span class=\"caja\"></span> ${opt}</li>`;\n        });\n        html += `</ul>`;\n    } else {\n        html += `<div class=\"espacio-desarrollo\"></div>`;\n    }\n    html += `</div>`;\n});\n\nhtml += `\n    <div class=\"footer\">Documento autogenerado. Por favor, responda con claridad en los espacios indicados.</div>\n</body>\n</html>`;\n\nreturn { html_content: html };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1376,
+        112
+      ],
+      "id": "a6d4e7a7-9994-42d2-8691-f510b6f8facb",
+      "name": "Embelleciendo examen pdf"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Obtenemos el string de preguntas (que viene como texto con escapes)\nlet preguntasRaw = $input.first().json.preguntas\n\n// 2. Lo convertimos en un objeto real de JS\nlet listaPreguntas = JSON.parse(preguntasRaw);\n\nlet textoFinal = \"📝 *NUEVO EXAMEN GENERADO* \\n\\n\";\n\nlistaPreguntas.forEach((p, index) => {\n  textoFinal += `*${index + 1}. ${p.pregunta}*\\n`;\n  \n  // Si tiene opciones (Multiple Choice o Verdadero/Falso), las listamos\n  if (p.opciones && p.opciones.length > 0) {\n    p.opciones.forEach((opcion, i) => {\n      textoFinal += `   ${String.fromCharCode(97 + i)}) ${opcion}\\n`; // a), b), c)...\n    });\n  }\n  \n  textoFinal += \"\\n\"; // Espacio entre preguntas\n});\n\nreturn { texto_formateado: textoFinal };;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1568,
+        -528
+      ],
+      "id": "d5c1fbe5-869f-40d6-8759-b06f07da4926",
+      "name": "Embelleciendo examen whapp"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Obtenemos el string de preguntas (que viene como texto con escapes)\nlet preguntasRaw = $input.first().json.preguntas\n\n// 2. Lo convertimos en un objeto real de JS\nlet listaPreguntas = JSON.parse(preguntasRaw);\n\nlet textoFinal = \"📝 *NUEVO EXAMEN GENERADO* \\n\\n\";\n\nlistaPreguntas.forEach((p, index) => {\n  textoFinal += `*${index + 1}. ${p.pregunta}*\\n`;\n  \n  // Si tiene opciones (Multiple Choice o Verdadero/Falso), las listamos\n  if (p.opciones && p.opciones.length > 0) {\n    p.opciones.forEach((opcion, i) => {\n      textoFinal += `   ${String.fromCharCode(97 + i)}) ${opcion}\\n`; // a), b), c)...\n    });\n  }\n  \n  textoFinal += \"\\n\"; // Espacio entre preguntas\n});\n\nreturn { texto_formateado: textoFinal };;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1552,
+        -48
+      ],
+      "id": "110217bf-d1d4-4dcf-a5b3-253af6b8a14a",
+      "name": "Embelleciendo examen edit whapp"
+    },
+    {
+      "parameters": {
+        "url": "https://teamcubation.app.n8n.cloud/webhook/49c13b91-3986-4a0d-bb2e-bf6f55d3bb87",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "respuestas",
+              "value": "={{ $('IA tipo De Evento').item.json.output.respuesta }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1184,
+        464
+      ],
+      "id": "2c1158a3-fb6a-4f39-a66b-5b6e2b2e230a",
+      "name": "Micro 6"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1033185156540146",
+        "recipientPhoneNumber": "={{ $('Es un Documento').item.json.data[1].celular }}",
+        "messageType": "document",
+        "mediaLink": "={{ JSON.parse($json.data).Files[0].Url }}",
+        "additionalFields": {
+          "mediaFilename": "={{ JSON.parse($json.data).Files[0].FileName }}"
+        }
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        1424,
+        464
+      ],
+      "id": "39531c42-b0f7-4a5a-b42a-3ff68d7eb247",
+      "name": "Enviar informacion recopilada",
+      "webhookId": "f8e727fc-f5a7-44cb-80c3-b262dfedfcdd",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "ZKTptRZlCYc7xPCM",
+          "name": "Enviar mensajes nico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1033185156540146",
+        "recipientPhoneNumber": "={{ $('Es un Documento').item.json.data[1].celular }}",
+        "textBody": "={{ $json.texto_formateado }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        1760,
+        -528
+      ],
+      "id": "bcf5afea-7a52-4a52-9508-b866c47a94ba",
+      "name": "Enviar examen",
+      "webhookId": "352ad76d-815a-4e9d-a496-b60330029f44",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "ZKTptRZlCYc7xPCM",
+          "name": "Enviar mensajes nico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1033185156540146",
+        "recipientPhoneNumber": "={{ $('Es un Documento').item.json.data[1].celular }}",
+        "messageType": "audio",
+        "mediaPath": "useMedian8n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        1760,
+        -384
+      ],
+      "id": "ed8f908b-a732-4f3c-8a16-37360bd6c740",
+      "name": "Enviar podcast",
+      "webhookId": "352ad76d-815a-4e9d-a496-b60330029f44",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "ZKTptRZlCYc7xPCM",
+          "name": "Enviar mensajes nico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1033185156540146",
+        "recipientPhoneNumber": "={{ $('Es un Documento').item.json.data[1].celular }}",
+        "textBody": "={{ $json.texto_whatsapp }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        1760,
+        -224
+      ],
+      "id": "2bc414b0-7349-43e0-8e8a-96930aadb3ea",
+      "name": "Enviar correccion",
+      "webhookId": "352ad76d-815a-4e9d-a496-b60330029f44",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "ZKTptRZlCYc7xPCM",
+          "name": "Enviar mensajes nico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1033185156540146",
+        "recipientPhoneNumber": "={{ $('Es un Documento').item.json.data[1].celular }}",
+        "textBody": "={{ $json.texto_formateado }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        1744,
+        -48
+      ],
+      "id": "1d321145-dcc8-4e6e-a2f2-16f750f0a5eb",
+      "name": "Enviar examen editado",
+      "webhookId": "352ad76d-815a-4e9d-a496-b60330029f44",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "ZKTptRZlCYc7xPCM",
+          "name": "Enviar mensajes nico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1033185156540146",
+        "recipientPhoneNumber": "={{ $('Es un Documento').item.json.data[1].celular }}",
+        "messageType": "document",
+        "mediaLink": "={{ JSON.parse($json.data).Files[0].Url }}",
+        "additionalFields": {
+          "mediaFilename": "={{ JSON.parse($json.data).Files[0].FileName }}"
+        }
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        2000,
+        112
+      ],
+      "id": "b5bcf01b-ffbf-42d1-b403-3941702e1543",
+      "name": "Exportar examen",
+      "webhookId": "f8e727fc-f5a7-44cb-80c3-b262dfedfcdd",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "ZKTptRZlCYc7xPCM",
+          "name": "Enviar mensajes nico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://v2.convertapi.com/convert/html/to/pdf?StoreFile=true",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer h2bYGmV7QnKGika5XPnYsNBVeFk48q9r"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "File",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1792,
+        112
+      ],
+      "id": "6b0fdca9-00c8-4723-9aaa-cc9a800d8351",
+      "name": "Html -> Pdf"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fc7e1ad3-ede3-42f7-9ead-c79592f50b2a",
+              "name": "preguntas",
+              "value": "={{ $json.preguntas }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1360,
+        -528
+      ],
+      "id": "09c3039a-4abb-479c-880c-c18215810f66",
+      "name": "Dato micro 2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fc7e1ad3-ede3-42f7-9ead-c79592f50b2a",
+              "name": "preguntas",
+              "value": "={{ $json.preguntas }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1376,
+        -48
+      ],
+      "id": "9f0520da-9288-482d-b77a-30ae751c6a83",
+      "name": "Dato micro 5"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Sos el cerebro clasificador del bot. Tu tarea es decidir a qué microservicio o flujo mandar al usuario.\n\nINSTRUCCIONES DE CLASIFICACIÓN (tipo_mensaje):\n1. EXAMEN: El usuario manda un PDF o pide generar preguntas de cero.\n2. PODCAST: El usuario pide el resumen en audio.\n3. DISEÑO: El usuario pide CAMBIAR o AJUSTAR preguntas ya existentes (ej: \"hace la 2 más difícil\", \"cambiá el tema de la 1\").\n4. RESPUESTA: El usuario está contestando un examen ya generado (ej: \"La A\", \"Verdadero\").\n5. EXPORTAR: El usuario pide exportar, descargar, guardar o generar el PDF del examen finalizado.\n6. AYUDA: El usuario está perdido, pide ayuda, comandos o pregunta qué puede hacer el bot (ej: \"ayuda\", \"¿qué podés hacer?\", \"comandos\").\n7. INVESTIGAR: El usuario pide buscar información sobre un tema específico y armar un resumen o apunte (ej: \"Investigá sobre microservicios\", \"Armame un resumen de bases de datos relacionales\").\n8. ERROR: Saludos o mensajes fuera de contexto que no encajan en ninguna de las opciones anteriores.\n\nDATOS REQUERIDOS:\n- drive_id: Buscá el ID en el contexto de MongoDB.\n- respuesta: Si es \"DISEÑO\", \"RESPUESTA\" o \"INVESTIGAR\", poné el texto exacto del usuario acá (ej: el tema a investigar o el cambio a realizar). Para el resto, poné \"N/A\".\n\nMENSAJE DEL USUARIO:\n\"{{ $json.data[1].mensaje }}\"",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        176,
+        -336
+      ],
+      "id": "14a973e8-c046-4239-90a0-f08806c8a833",
+      "name": "IA tipo De Evento"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1033185156540146",
+        "recipientPhoneNumber": "={{ $('Es un Documento').item.json.data[1].celular }}",
+        "textBody": "=¿Querés editar algo más o ya lo exporto así como está? 🙂",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        1936,
+        -48
+      ],
+      "id": "9abd5d8d-c809-4026-9606-aa9e3d488291",
+      "name": "Pregunta al usuario si queire editar algo mas sino exporte",
+      "webhookId": "352ad76d-815a-4e9d-a496-b60330029f44",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "ZKTptRZlCYc7xPCM",
+          "name": "Enviar mensajes nico"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "WhatsApp Trigger": {
+      "main": [
+        [
+          {
+            "node": "Datos Whapp",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Token",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "IA tipo De Evento",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "IA tipo De Evento",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Mensaje armando Preg",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mensaje armando Podcast",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mensaje Verficiando Rta",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Micro 5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Buscando examen",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mensaje de help",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mensaje de Investigando sobre tema",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mensaje de error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Token": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Es un Documento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find documents in MongoDB": {
+      "ai_tool": [
+        [
+          {
+            "node": "IA tipo De Evento",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "IA tipo De Evento",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Enviar correccion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Enviar podcast",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File1": {
+      "main": [
+        [
+          {
+            "node": "Html -> Pdf",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Es un Documento": {
+      "main": [
+        [
+          {
+            "node": "IA tipo De Evento",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Accion en base al texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Datos Whapp": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Accion en base al texto": {
+      "main": [
+        [
+          {
+            "node": "Solicitar id del documento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Solicitar id del documento": {
+      "main": [
+        [
+          {
+            "node": "Guardar Documento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar Documento": {
+      "main": [
+        [
+          {
+            "node": "Aislar Datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aislar Datos": {
+      "main": [
+        [
+          {
+            "node": "Guardar Doc en BD",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mensaje armando Preg": {
+      "main": [
+        [
+          {
+            "node": "Micro 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mensaje armando Podcast": {
+      "main": [
+        [
+          {
+            "node": "Micro 4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mensaje Verficiando Rta": {
+      "main": [
+        [
+          {
+            "node": "Micro 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mensaje de Investigando sobre tema": {
+      "main": [
+        [
+          {
+            "node": "Micro 6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mensaje de error": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Micro 2": {
+      "main": [
+        [
+          {
+            "node": "Dato micro 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Micro 4": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Micro 3": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscando examen": {
+      "main": [
+        [
+          {
+            "node": "Embelleciendo examen pdf",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Micro 5": {
+      "main": [
+        [
+          {
+            "node": "Dato micro 5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embelleciendo examen pdf": {
+      "main": [
+        [
+          {
+            "node": "Convert to File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embelleciendo examen whapp": {
+      "main": [
+        [
+          {
+            "node": "Enviar examen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embelleciendo examen edit whapp": {
+      "main": [
+        [
+          {
+            "node": "Enviar examen editado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Micro 6": {
+      "main": [
+        [
+          {
+            "node": "Enviar informacion recopilada",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar examen": {
+      "main": [
+        []
+      ]
+    },
+    "Enviar examen editado": {
+      "main": [
+        [
+          {
+            "node": "Pregunta al usuario si queire editar algo mas sino exporte",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Html -> Pdf": {
+      "main": [
+        [
+          {
+            "node": "Exportar examen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dato micro 2": {
+      "main": [
+        [
+          {
+            "node": "Embelleciendo examen whapp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dato micro 5": {
+      "main": [
+        [
+          {
+            "node": "Embelleciendo examen edit whapp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IA tipo De Evento": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9e32504f9a8817c896d4d37219099e0711e6952633709227e55b425d6b54bd63"
+  }
+}
