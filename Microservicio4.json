@@ -125,7 +125,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://texttospeech.googleapis.com/v1/text:synthesize?key=AIzaSyDhrc4skevuYaS9NzHgh4tQJn59QsOatQk",
+        "url": "https://texttospeech.googleapis.com/v1/text:synthesize?key={{ KEYTTS }}",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"input\": {\n    \"text\": {{ JSON.stringify($json.output) }}\n  },\n  \"voice\": {\n    \"languageCode\": \"es-US\",\n    \"name\": \"es-US-Wavenet-B\"\n  },\n  \"audioConfig\": {\n    \"audioEncoding\": \"MP3\",\n    \"pitch\": 0,\n    \"speakingRate\": 1.0\n  }\n}",
