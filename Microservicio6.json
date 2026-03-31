@@ -1,0 +1,244 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Actuás como un investigador académico experto. Tu objetivo es redactar un apunte estructurado, súper completo y didáctico sobre el tema: \n{{ $json.body.respuestas }}\n\nExplicá los conceptos clave de forma clara para un estudiante universitario de ingeniería.",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        128,
+        160
+      ],
+      "id": "744274bc-da3d-414b-afb1-a950f896709e",
+      "name": "AI Investigador"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"titulo\": \"Tema Investigado\",\n  \"introduccion\": \"Párrafo introductorio...\",\n  \"puntos_clave\": [\n    {\n      \"subtitulo\": \"Concepto 1\",\n      \"explicacion\": \"Detalle profundo...\"\n    }\n  ],\n  \"conclusion\": \"Resumen final...\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        352,
+        352
+      ],
+      "id": "34673416-4508-4057-9417-f40a44ab069c",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json.output;\nlet html = `\n<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <style>\n        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding: 40px; color: #2C3E50; line-height: 1.6; }\n        .header { border-bottom: 3px solid #2980B9; padding-bottom: 20px; margin-bottom: 30px; }\n        h1 { margin: 0; font-size: 28px; color: #2980B9; text-transform: uppercase; }\n        h2 { color: #34495E; border-bottom: 1px solid #ECF0F1; padding-bottom: 5px; margin-top: 30px; }\n        .intro { font-size: 16px; font-style: italic; color: #7F8C8D; margin-bottom: 30px; background: #F8F9FA; padding: 15px; border-left: 4px solid #BDC3C7; }\n        .punto { margin-bottom: 20px; }\n        .subtitulo { font-weight: bold; font-size: 18px; color: #2C3E50; margin-bottom: 5px; }\n        .explicacion { margin-left: 15px; }\n        .conclusion { margin-top: 40px; background-color: #E8F6F3; padding: 20px; border-radius: 8px; border: 1px solid #A3E4D7; }\n        .footer { margin-top: 50px; text-align: center; font-size: 12px; color: #BDC3C7; }\n    </style>\n</head>\n<body>\n    <div class=\"header\">\n        <h1>Apunte: ${data.titulo}</h1>\n        <div style=\"color: #7F8C8D; margin-top: 5px;\">Generado mediante Inteligencia Artificial</div>\n    </div>\n    <div class=\"intro\">${data.introduccion}</div>\n    <h2>Conceptos Clave</h2>\n`;\n\ndata.puntos_clave.forEach(punto => {\n    html += `\n    <div class=\"punto\">\n        <div class=\"subtitulo\">🔹 ${punto.subtitulo}</div>\n        <div class=\"explicacion\">${punto.explicacion}</div>\n    </div>`;\n});\n\nhtml += `\n    <div class=\"conclusion\">\n        <strong>Conclusión:</strong><br>${data.conclusion}\n    </div>\n    <div class=\"footer\">Documento de investigación generado para estudio personal.</div>\n</body>\n</html>`;\n\nreturn { html_content: html };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        160
+      ],
+      "id": "b263eeed-2818-4e55-acf2-ceca9e19669e",
+      "name": "Armar Apunte HTML"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://v2.convertapi.com/convert/html/to/pdf?StoreFile=true",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer h2bYGmV7QnKGika5XPnYsNBVeFk48q9r"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "File",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        880,
+        160
+      ],
+      "id": "13d5fb77-4ef1-46d0-b6ea-dd5c18ff91a7",
+      "name": "ConvertAPI PDF"
+    },
+    {
+      "parameters": {
+        "path": "49c13b91-3986-4a0d-bb2e-bf6f55d3bb87",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -80,
+        160
+      ],
+      "id": "cb7b58ab-bb35-4ea4-8598-87cfdfcb160b",
+      "name": "Webhook1",
+      "webhookId": "49c13b91-3986-4a0d-bb2e-bf6f55d3bb87"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o"
+        },
+        "builtInTools": {},
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        80,
+        352
+      ],
+      "id": "6f1fe619-1e48-400b-bb38-fa90e81a56b6",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "b2HfoLnPNXu8vZS5",
+          "name": "Boostercamp"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        160
+      ],
+      "id": "69d7a6da-8f50-4c7a-9f10-f281d87a23b9",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "html_content",
+        "options": {
+          "fileName": "Resuemen_Generado.html"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        672,
+        160
+      ],
+      "id": "edba7fec-38b3-4b5e-b295-91fd758ea2ad",
+      "name": "Convert to File1"
+    }
+  ],
+  "connections": {
+    "AI Investigador": {
+      "main": [
+        [
+          {
+            "node": "Armar Apunte HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Investigador",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Armar Apunte HTML": {
+      "main": [
+        [
+          {
+            "node": "Convert to File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ConvertAPI PDF": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "AI Investigador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Investigador",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File1": {
+      "main": [
+        [
+          {
+            "node": "ConvertAPI PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9e32504f9a8817c896d4d37219099e0711e6952633709227e55b425d6b54bd63"
+  }
+}
